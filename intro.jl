@@ -1,5 +1,5 @@
 using DrWatson
-@quickactivate "AquaplanetIslands"
+@quickactivate "AquaSlabIslands"
 
 println(
 """
