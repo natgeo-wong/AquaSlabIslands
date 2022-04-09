@@ -62,7 +62,7 @@ function slabocean_generation(
 
     dstime.var[:] = Float32.([14.0,46.0,74.0,105.0,135.0,166.0,196.0,227.0,258.0,288.0,319.0,349.0])
     dsqdp.var[:] .= 0
-    dshblt.var[:] .= 0
+    dshblt.var[:] .= 30
     dsS.var[:] .= 0
     dsT.var[:] .= 0
     dsU.var[:] .= 0
