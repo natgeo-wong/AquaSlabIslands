@@ -1,0 +1,5 @@
+# RectRegion
+# Bounds for the Idealised Islands for the Archipelago 1x1 Configuration
+# (1)ID, (2)pID, (3)N, (4)W, (5)S, (6)E, (7)Description, (8)Notes
+
+A1x1, GLB, 2.0, -2.0, -2.0, 2.0, Archipelago 1x1 Island 1
