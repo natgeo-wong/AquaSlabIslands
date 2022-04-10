@@ -218,7 +218,7 @@ subroutine radiation_readnl(nlfile)
    if (use_rad_uniform_lat .and. rad_uniform_lat == -99._r8) then
       call endrun(sub // ' ERROR - use_rad_uniform_lat is set to .true, but rad_uniform_lat is not set ')
    else
-      rad_uniform_lat = rad_uniform_lat / (2*pi)
+      rad_uniform_lat = rad_uniform_lat / 180 * pi
    end if
 
    ! Convert iradsw, iradlw and irad_always from hours to timesteps if necessary
@@ -880,7 +880,7 @@ subroutine radiation_tend( &
       end do
    else if (use_rad_uniform_lat) then
       do i = 1, ncol
-         coszrs(i) = shr_orb_cosz(calday, rad_uniform_lat / (2*pi), 0._r8, delta, dt_avg)
+         coszrs(i) = shr_orb_cosz(calday, rad_uniform_lat, 0._r8, delta, dt_avg)
       end do
    else
       do i = 1, ncol
