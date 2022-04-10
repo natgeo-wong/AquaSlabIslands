@@ -148,6 +148,7 @@ real(r8) :: dt_avg = 0._r8
 
 real(r8) :: rad_uniform_angle = -99._r8
 real(r8) :: rad_uniform_lat   = -99._r8
+real(r8) :: pi = 3.14159265359_r8
 
 ! PIO descriptors (for restarts)
 type(var_desc_t) :: cospcnt_desc
@@ -879,7 +880,7 @@ subroutine radiation_tend( &
       end do
    else if (use_rad_uniform_lat) then
       do i = 1, ncol
-         coszrs(i) = shr_orb_cosz(calday, rad_uniform_lat / (2*pi), 0, delta, dt_avg)
+         coszrs(i) = shr_orb_cosz(calday, rad_uniform_lat / (2*pi), 0._r8, delta, dt_avg)
       end do
    else
       do i = 1, ncol
