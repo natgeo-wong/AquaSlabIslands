@@ -24,6 +24,8 @@ exp/prm/*sample*
 builds
 codebase
 inputdata
+cases
+userdata
 
 ################################################################################
 #                                    Julia                                     #

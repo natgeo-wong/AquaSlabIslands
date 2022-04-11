@@ -1,5 +1,15 @@
 using NCDatasets
 
+function slabocean_copy(
+    fnc :: AbstractString;
+    srcfile :: AbstractString
+)
+
+    cp(srcfile,fnc,force=true)
+    return NCDataset(fnc,"a")
+
+end
+
 function slabocean_generation(
     fnc :: AbstractString;
     srcfile :: AbstractString,
@@ -71,7 +81,16 @@ function slabocean_generation(
     dsdhdy.var[:] .= 0
 
     if control
-          close(ds)
+        lat = nomissing(ds["yc"][:,1])
+        npt = length(lat)
+        for ipnt = 1 : npt
+			ilat = lat[ipnt]
+			if abs.(ilat) < 60
+				  ds["T"].var[ipnt,:,:] .= 27 * (2 - sind(ilat*1.5)^2 - sind(ilat*1.5)^4) / 2
+			else; ds["T"].var[ipnt,:,:] .= 0
+			end
+		end
+        close(ds)
     else; return ds
     end
 
