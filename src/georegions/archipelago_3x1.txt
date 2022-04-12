@@ -1,7 +1,0 @@
-# RectRegion
-# Bounds for the Idealised Islands for the Archipelago 1x1 Configuration
-# (1)ID, (2)pID, (3)N, (4)W, (5)S, (6)E, (7)Description, (8)Notes
-
-ASI_A3x1_1, GLB, 2.0, -2.0, -2.0, 2.0, Archipelago 3x1 Island 1
-ASI_A3x1_2, GLB, 2.0, -7.0, -2.0, -3.0, Archipelago 3x1 Island 2
-ASI_A3x1_3, GLB, 2.0, 3.0, -2.0, 7.0, Archipelago 3x1 Island 3
