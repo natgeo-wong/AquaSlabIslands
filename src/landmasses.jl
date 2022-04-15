@@ -24,3 +24,15 @@ function archipelago(;
     return geovec
 
 end
+
+function continent(;
+    continent_lon :: Real,
+    continent_lat :: Real
+)
+
+    return RectRegion("", "GLB", "", [
+        continent_lat/2, -continent_lat/2,
+        continent_lon/2, -continent_lon/2
+    ], savegeo = false)
+
+end
