@@ -44,8 +44,8 @@ function CubedSphere2LonLat(
 end
 
 function cubedsphere2lonlat!(
-    oarray :: Array{<:Real,2},
-    iarray :: Vector{<:Real},
+    oarray :: AbstractArray{<:Real,2},
+    iarray :: AbstractVector{<:Real},
     cs2ll  :: CubedSphere2LonLat{FT}
 ) where FT <: Real
 
