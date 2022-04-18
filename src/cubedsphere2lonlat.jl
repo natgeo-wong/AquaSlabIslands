@@ -15,10 +15,14 @@ function CubedSphere2LonLat(
     mesh_lat :: Vector{<:Real};
     resolution_lon :: Real = 1.0,
     resolution_lat :: Real = 1.0,
+    is180 = true,
     FT = Float64
 )
 
-    lon = collect( 0  : resolution_lon : 360); nlon = length(lon)
+    if is180
+          lon = collect(-180 : resolution_lon : 180); nlon = length(lon)
+    else; lon = collect(   0 : resolution_lon : 360); nlon = length(lon)
+    end
     lat = collect(-90 : resolution_lat : 90);  nlat = length(lat)
     ncell  = length(mesh_lon)
     points = zeros(3,ncell)
