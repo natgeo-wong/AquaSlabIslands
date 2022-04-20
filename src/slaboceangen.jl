@@ -14,7 +14,7 @@ function slabocean_generation(
     fnc :: AbstractString;
     srcfile :: AbstractString,
     control :: Bool = true,
-    FT = Float32
+    FT = Float64
 )
 
     cp(srcfile,fnc,force=true)
@@ -70,7 +70,7 @@ function slabocean_generation(
         "units"       => "m/m",
     ))
 
-    dstime.var[:] = Float32.([14.0,46.0,74.0,105.0,135.0,166.0,196.0,227.0,258.0,288.0,319.0,349.0])
+    dstime.var[:] = FT.([14.0,46.0,74.0,105.0,135.0,166.0,196.0,227.0,258.0,288.0,319.0,349.0])
     dsqdp.var[:] .= 0
     dshblt.var[:] .= 30
     dsS.var[:] .= 0
