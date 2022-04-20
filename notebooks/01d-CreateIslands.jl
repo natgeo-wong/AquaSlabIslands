@@ -34,7 +34,7 @@ begin
 
 	include(srcdir("cubedsphere2lonlat.jl"))
 	include(srcdir("slaboceangen.jl"))
-	include(srcdir("archipelago.jl"))
+	include(srcdir("landmasses.jl"))
 
 md"Loading modules for the AquaSlabIslands project..."
 end
@@ -47,7 +47,7 @@ In this notebook, we create regions of shallow slab-depth based on GeoRegion tex
 "
 
 # ╔═╡ 84a363a6-a100-4ec2-8e9c-a171fa77ab5f
-md"Is SST in RCE? $(@bind issstRCE PlutoUI.Slider(0:1))"
+md"Is SST in RCE? $(@bind issstRCE PlutoUI.Slider(0:1,default=1))"
 
 # ╔═╡ 0545daf7-27bd-4937-ba7d-342723234f5e
 if isone(issstRCE)
@@ -61,8 +61,18 @@ nx = 7
 # ╔═╡ 0ceef88f-5038-479c-b59c-1c96afa48811
 ny = 3
 
+# ╔═╡ a9a79642-7372-4514-8a34-6f70fc98a3b0
+md"Is Archipelago? $(@bind isarchipelago PlutoUI.Slider(0:1))"
+
+# ╔═╡ c205b538-c8a1-4e96-9681-41917901ad20
+if isone(isarchipelago)
+	landtype = "archipelago"
+else
+	landtype = "continent"
+end
+
 # ╔═╡ 24465e12-fc78-454e-a214-d16be0199412
-landconfig = "archipelago_$(nx)x$(ny)"
+landconfig = "$(landtype)_$(nx)x$(ny)"
 
 # ╔═╡ 5615e529-ee84-4de4-8b0c-635f7cae240e
 config = "$(sstconfig)-$(landconfig)"
@@ -73,7 +83,11 @@ md"
 "
 
 # ╔═╡ f0aea29d-a88a-47fb-959a-fa0590c66502
-geovec = archipelago(nx=nx,ny=ny)
+if isone(isarchipelago)
+	geovec = archipelago(nx=nx,ny=ny)
+else
+	geovec = [continent(continent_lon=(2*nx-1)*4,continent_lat=(2*ny-1)*4)]
+end
 
 # ╔═╡ 89704ace-ea38-429b-b8ef-ca6b1fcd2a0f
 begin
@@ -98,7 +112,7 @@ md"
 begin
 	mkpath(projectdir("userdata","slabocean_input"))
 	dnc = projectdir("inputdata","share","domains","domain.ocn.ne30_gx1v7.171003.nc")
-	nnc = projectdir("userdata","slabocean_input","$(config).nc")
+	nnc = projectdir("userdata","OCN_SOM","nwong_aquaslabislands-$(config).nc")
 	nds = slabocean_generation(nnc,srcfile=dnc,control=false)
 	md"Make new slab-ocean file for the \"$(config)\" configuration ..."
 end
@@ -260,6 +274,8 @@ end
 # ╟─0545daf7-27bd-4937-ba7d-342723234f5e
 # ╠═246b836d-32b8-41fe-a093-ab92a31b2525
 # ╠═0ceef88f-5038-479c-b59c-1c96afa48811
+# ╟─a9a79642-7372-4514-8a34-6f70fc98a3b0
+# ╟─c205b538-c8a1-4e96-9681-41917901ad20
 # ╟─24465e12-fc78-454e-a214-d16be0199412
 # ╟─5615e529-ee84-4de4-8b0c-635f7cae240e
 # ╟─8a4a4054-be83-48d0-9298-665b92e45920

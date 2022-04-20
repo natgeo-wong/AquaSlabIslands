@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.18.4
+# v0.19.0
 
 using Markdown
 using InteractiveUtils
@@ -70,31 +70,11 @@ From what we've seen, we create the slab-ocean file by first copying the ocean d
 
 # ╔═╡ 609ed6e0-2c02-48ac-a378-bb4518ec24f7
 begin
-	mkpath(projectdir("userdata","slabocean_input"))
-	nnc = projectdir("userdata","slabocean_input","control.nc")
+	mkpath(projectdir("userdata","OCN_SOM"))
+	nnc = projectdir("userdata","OCN_SOM","nwong_aquaslabislands-control.nc")
 	slabocean_generation(nnc,srcfile=dnc)
 	md"Make new slab-ocean file ..."
 end
-
-# ╔═╡ c72362a6-6e5f-4f8f-93cb-eb473e01a83a
-begin
-	ds = NCDataset(nnc,"a")
-	lat = ds["yc"].var[:,1]
-	# ds["T"].var[:] .= 26.85
-
-	for ipnt = 1 : length(lat)
-		ilat = lat[ipnt]
-		if abs.(ilat) < 60
-			  ds["T"].var[ipnt,:,:] .= 27 * (2 - sind(ilat*1.5)^2 - sind(ilat*1.5)^4) / 2
-		else; ds["T"].var[ipnt,:,:] .= 0
-		end
-	end
-	
-	ds["hblt"].var[:] .= 30.
-end
-
-# ╔═╡ 167ee71a-ee20-446e-83fa-8a62994c4b64
-close(ds)
 
 # ╔═╡ Cell order:
 # ╟─208c7612-b7bb-11ec-009a-5d7bdb56bf80
@@ -108,5 +88,3 @@ close(ds)
 # ╟─15d03aca-ed57-426a-a7fa-5fc3dd60584a
 # ╟─41fce9ef-3e40-4436-a78e-2dfefc2d85c2
 # ╠═609ed6e0-2c02-48ac-a378-bb4518ec24f7
-# ╠═c72362a6-6e5f-4f8f-93cb-eb473e01a83a
-# ╠═167ee71a-ee20-446e-83fa-8a62994c4b64

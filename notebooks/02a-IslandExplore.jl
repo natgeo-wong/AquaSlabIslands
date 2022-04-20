@@ -40,17 +40,17 @@ end
 
 # ╔═╡ 47e99bd5-f018-4ae7-97af-515328e9d79c
 md"
-# 01f. Exploring how Slab Depth affects the Spinup
+# 02a. Landmass Configuration Spinup
 "
 
 # ╔═╡ 4c2a4c84-7d0d-45c2-9747-ac0df6580d52
 expname = "DINSOL_NOROT_A"
 
 # ╔═╡ d693c898-4c5c-4602-9ba9-23d12cee2c26
-nx = 7
+nx = 1
 
 # ╔═╡ 98aa076c-303c-49df-8225-db72068bd76d
-ny = 3
+ny = 1
 
 # ╔═╡ 8ee83f4f-84ef-4677-931e-aac435b083f1
 landconfig = "$(nx)x$(ny)"
@@ -61,7 +61,7 @@ runname = "$(uppercase(expname))$(landconfig)"
 # ╔═╡ 93cf1f1e-9457-44ca-a8a2-8fed95d356e0
 begin
 	fol  = datadir("$(runname)","atm","hist")
-	fnc1 = joinpath(fol,"$(runname).cam.h2.0002-01-01-00000.nc")
+	fnc1 = joinpath(fol,"$(runname).cam.h1.0002-01-01-00000.nc")
 end
 
 # ╔═╡ d82b3667-4c4f-4c17-a15e-6ede94aac48d
@@ -94,7 +94,7 @@ md"Create Animation? $(@bind createanim PlutoUI.Slider(0:1))"
 # ╔═╡ dbc2072e-b7a6-484b-82e3-9aafaf2f9700
 begin
 	if isone(createanim)
-		for it = 2400
+		for it = 100
 	
 			# it = 95
 			pplt.close();
@@ -146,55 +146,7 @@ begin
 end
 
 # ╔═╡ 3683a6ef-5025-4a62-be7b-770ed8948f78
-load(plotsdir("$(runname)","$(@sprintf("%04d",2400)).png"))
-
-# ╔═╡ 737e600b-a987-461f-917b-9652906d98b9
-begin
-	tcw_μ  = dropdims(mean(tcw[:,1201:2400],dims=2),dims=2)
-	olr_μ  = dropdims(mean(olr[:,1201:2400],dims=2),dims=2)
-	tsfc_μ = dropdims(mean(tsfc[:,1201:2400],dims=2),dims=2)
-	prcp_μ = dropdims(mean(prcp[:,1201:2400],dims=2),dims=2)
-end
-
-# ╔═╡ 2cb1740a-aa8b-4f4f-97ab-83bfbd19034b
-begin
-	pplt.close(); fig,axs = pplt.subplots(
-		nrows=2,ncols=2,axwidth=1.5,
-		proj="ortho",proj_kw=Dict("lon_0"=>180)
-	)
-	
-	cubedsphere2lonlat!(ntcw,tcw_μ,cs2ll)
-	c1μ = axs[1].pcolormesh(
-		cs2ll.lon,cs2ll.lat,ntcw',levels=25:40,
-		cmap="blues",extend="both"
-	)
-	axs[1].colorbar(c1μ,length=0.75,loc="l",label="PWV / mm")
-	
-	cubedsphere2lonlat!(ntsfc,tsfc_μ,cs2ll)
-	c2μ = axs[2].pcolormesh(
-		cs2ll.lon,cs2ll.lat,ntsfc',levels=295:305,
-		cmap="viridis",extend="both"
-	)
-	axs[2].colorbar(c2μ,length=0.75,label=L"$T_s$ / $\degree$C")
-	
-	cubedsphere2lonlat!(nolr,olr_μ,cs2ll)
-	c3μ = axs[3].pcolormesh(
-		cs2ll.lon,cs2ll.lat,nolr',levels=150:10:300,
-		cmap="greys",extend="both"
-	)
-	axs[3].colorbar(c3μ,length=0.75,loc="l",label=L"OLR / W m$^{-2}$")
-	
-	cubedsphere2lonlat!(nprcp,prcp_μ,cs2ll)
-	c4μ = axs[4].pcolormesh(
-		cs2ll.lon,cs2ll.lat,nprcp',levels=5:20,
-		cmap="Blues",extend="both"
-	)
-	axs[4].colorbar(c4μ,length=0.75,label=L"Rain Rate / mm day$^{-1}$",locator=5:5:20)
-	axs[4].format(suptitle="Mean")
-	
-	fig.savefig(plotsdir("$(runname)_mean.png"),transparent=false,dpi=150)
-	load(plotsdir("$(runname)_mean.png"))
-end
+load(plotsdir("$(runname)","$(@sprintf("%04d",100)).png"))
 
 # ╔═╡ Cell order:
 # ╟─47e99bd5-f018-4ae7-97af-515328e9d79c
@@ -206,10 +158,8 @@ end
 # ╟─8ee83f4f-84ef-4677-931e-aac435b083f1
 # ╟─5348a75b-da3a-4951-b707-8049adf14703
 # ╟─93cf1f1e-9457-44ca-a8a2-8fed95d356e0
-# ╠═d82b3667-4c4f-4c17-a15e-6ede94aac48d
+# ╟─d82b3667-4c4f-4c17-a15e-6ede94aac48d
 # ╟─c26f41bd-38da-4dc0-9fb4-0e990c40f464
-# ╟─a3ddf7a7-5bfe-4d80-bf50-9749021d7b97
-# ╟─dbc2072e-b7a6-484b-82e3-9aafaf2f9700
+# ╠═a3ddf7a7-5bfe-4d80-bf50-9749021d7b97
+# ╠═dbc2072e-b7a6-484b-82e3-9aafaf2f9700
 # ╟─3683a6ef-5025-4a62-be7b-770ed8948f78
-# ╟─737e600b-a987-461f-917b-9652906d98b9
-# ╟─2cb1740a-aa8b-4f4f-97ab-83bfbd19034b
