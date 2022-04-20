@@ -18,6 +18,7 @@
 ./xmlchange RUN_REFDATE=0002-01-01
 ./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-archipelago_3x3.nc"
 
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong_aquaslabislands-rce300K-archipelago_3x3.nc
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
 # Add the following to user_nl_cam

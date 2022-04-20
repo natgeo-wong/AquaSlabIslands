@@ -16,8 +16,9 @@
 ./xmlchange RUN_STARTDATE=0002-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_SPINUP
 ./xmlchange RUN_REFDATE=0002-01-01
-./xmlchange DOCN_SOM_FILENAME="nwong_SOM/aquaslabislands-rce300K-continent_2x2.nc"
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-continent_2x2.nc"
 
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong_aquaslabislands-rce300K-continent_2x2.nc
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
 # Add the following to user_nl_cam
@@ -49,7 +50,7 @@ inithist = 'ENDOFRUN'
 ./xmlchange RUN_STARTDATE=0003-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_C2x2
 ./xmlchange RUN_REFDATE=0002-04-11
-./xmlchange DOCN_SOM_FILENAME="nwong_SOM/aquaslabislands-rce300K-continent_2x2.nc"
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-continent_2x2.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
@@ -82,7 +83,7 @@ inithist = 'ENDOFRUN'
 ./xmlchange RUN_STARTDATE=0006-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_C2x2
 ./xmlchange RUN_REFDATE=0005-09-28
-./xmlchange DOCN_SOM_FILENAME="nwong_SOM/aquaslabislands-rce300K-continent_2x2.nc"
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-continent_2x2.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
