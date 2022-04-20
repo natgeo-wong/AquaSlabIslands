@@ -10,10 +10,7 @@
 ./xmlchange STOP_N=1
 ./xmlchange STOP_OPTION=nyears
 ./xmlchange RESUBMIT=1
-
-./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K.nc"
-
-ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 

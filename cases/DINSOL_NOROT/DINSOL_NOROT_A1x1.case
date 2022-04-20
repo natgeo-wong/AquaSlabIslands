@@ -16,9 +16,7 @@
 ./xmlchange RUN_STARTDATE=0002-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_SPINUP
 ./xmlchange RUN_REFDATE=0002-01-01
-./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K-archipelago_1x1.nc"
-
-ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-archipelago_1x1.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
@@ -51,9 +49,7 @@ inithist = 'ENDOFRUN'
 ./xmlchange RUN_STARTDATE=0003-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_A1x1
 ./xmlchange RUN_REFDATE=0002-04-11
-./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K-archipelago_1x1.nc"
-
-ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-archipelago_1x1.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
@@ -86,8 +82,7 @@ inithist = 'ENDOFRUN'
 ./xmlchange RUN_STARTDATE=0006-01-01
 ./xmlchange RUN_REFCASE=DINSOL_NOROT_A1x1
 ./xmlchange RUN_REFDATE=0005-09-28
-
-ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+./xmlchange DOCN_SOM_FILENAME="nwong_aquaslabislands-rce300K-archipelago_1x1.nc"
 
 ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
 
