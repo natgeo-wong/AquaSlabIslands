@@ -1,0 +1,37 @@
+##########################################################################################
+### Build the case
+
+./create_newcase --case $CESMDATAROOT/builds/DINSOL_NOROT_SPINUP --compset QSC6 --res ne30_ne30_mg17
+
+##########################################################################################
+### Spinup run with islands, plot evolution from slab state
+
+./xmlchange NTASKS=480
+./xmlchange STOP_N=1
+./xmlchange STOP_OPTION=nyears
+./xmlchange RESUBMIT=1
+
+./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K.nc"
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
+
+# Add the following to user_nl_cam
+empty_htapes = .true.
+mfilt  = 365, 8760
+nhtfrq = -24, -1
+fincl1 = 'TMQ', 'PRECT', 'TS', 'PS', 'QFLX', 'CAPE', 'CLDTOT',
+         'OMEGA500', 'OMEGA850', 'T500', 'U250',
+         'SHFLX', 'LHFLX', 'FSNS', 'FLNS', 'FLUT'
+fincl2 = 'SOLIN'
+
+use_rad_uniform_angle = .false.
+use_rad_uniform_lat   = .true.
+rad_uniform_lat       = 0.
+
+omega = 0.
+
+solar_irrad_data_file = '/n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/atm/cam/solar/ape_solar_ave_tsi_1365.nc'
+prescribed_ozone_file = 'ozone.cam.ne30.L32.RCEMIP_c20190507.nc'
+ncdata = '/n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/atm/cam/inic/se/initial_data.cam.ne30.L32.RCEMIP_c20190507.nc'

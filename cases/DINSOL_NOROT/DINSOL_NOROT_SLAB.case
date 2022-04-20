@@ -1,0 +1,113 @@
+##########################################################################################
+### Build the case
+
+./create_newcase --case $CESMDATAROOT/builds/DINSOL_NOROT_SLAB --compset QSC6 --res ne30_ne30_mg17
+
+##########################################################################################
+### Spinup run with islands, plot evolution from slab state
+
+./xmlchange NTASKS=480
+./xmlchange STOP_N=100
+./xmlchange STOP_OPTION=ndays
+./xmlchange RESUBMIT=0
+./xmlchange JOB_WALLCLOCK_TIME=1:30:00 --subgroup case.run
+
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=0002-01-01
+./xmlchange RUN_REFCASE=DINSOL_NOROT_SPINUP
+./xmlchange RUN_REFDATE=0002-01-01
+./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K.nc"
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
+
+# Add the following to user_nl_cam
+mfilt  = 1, 100
+nhtfrq = -2400, -24
+fincl2 = 'TMQ', 'PRECT', 'TS', 'PS', 'QFLX', 'CAPE', 'CLDTOT',
+         'OMEGA500', 'OMEGA850', 'T500', 'U250',
+         'SHFLX', 'LHFLX', 'FSNS', 'FLNS', 'FLUT'
+
+use_rad_uniform_angle = .false.
+use_rad_uniform_lat   = .true.
+rad_uniform_lat       = 0.
+
+omega = 0.
+
+solar_irrad_data_file = '/n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/atm/cam/solar/ape_solar_ave_tsi_1365.nc'
+prescribed_ozone_file = 'ozone.cam.ne30.L32.RCEMIP_c20190507.nc'
+inithist = 'ENDOFRUN'
+
+##########################################################################################
+### Main run with islands, to get overall climatology
+
+./xmlchange STOP_N=1000
+./xmlchange STOP_OPTION=ndays
+./xmlchange RESUBMIT=0
+./xmlchange JOB_WALLCLOCK_TIME=18:00:00 --subgroup case.run
+
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=0003-01-01
+./xmlchange RUN_REFCASE=DINSOL_NOROT_SLAB
+./xmlchange RUN_REFDATE=0002-04-11
+./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K.nc"
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
+
+# Add the following to user_nl_cam
+mfilt  = 1, 1000
+nhtfrq = -24000, -24
+fincl2 = 'TMQ', 'PRECT', 'TS', 'PS', 'QFLX', 'CAPE', 'CLDTOT',
+         'OMEGA500', 'OMEGA850', 'T500', 'U250',
+         'SHFLX', 'LHFLX', 'FSNS', 'FLNS', 'FLUT'
+
+use_rad_uniform_angle = .false.
+use_rad_uniform_lat   = .true.
+rad_uniform_lat       = 0.
+
+omega = 0.
+
+solar_irrad_data_file = '/n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/atm/cam/solar/ape_solar_ave_tsi_1365.nc'
+prescribed_ozone_file = 'ozone.cam.ne30.L32.RCEMIP_c20190507.nc'
+inithist = 'ENDOFRUN'
+
+##########################################################################################
+### After main run, save hourly data over next 25 days
+
+./xmlchange STOP_N=26
+./xmlchange STOP_OPTION=ndays
+./xmlchange RESUBMIT=0
+./xmlchange JOB_WALLCLOCK_TIME=0:30:00 --subgroup case.run
+
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=0006-01-01
+./xmlchange RUN_REFCASE=DINSOL_NOROT_SLAB
+./xmlchange RUN_REFDATE=0005-09-28
+./xmlchange DOCN_SOM_FILENAME="nwong/AquaSlabIslands/rce300K.nc"
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/ocn/docn7/SOM/nwong
+
+ln -s /n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/src/SourceMods/src.cam/radiation.F90
+
+# Add the following to user_nl_cam
+mfilt  = 1, 26, 624
+nhtfrq = -624, -24, -1
+fincl2 = 'TMQ', 'PRECT', 'TS', 'PS', 'QFLX', 'CAPE', 'CLDTOT',
+         'OMEGA500', 'OMEGA850', 'T500', 'U250',
+         'SHFLX', 'LHFLX', 'FSNS', 'FLNS', 'FLUT'
+fincl3 = 'TMQ', 'PRECT', 'PRECC', 'CAPE', 'CIN', 'CLDTOT', 'TS', 'PS',
+         'U', 'V', 'OMEGA', 'T', 'Q', 'CLOUD',
+         'SHFLX', 'LHFLX', 'FSNS', 'FLNS', 'FLUT', 'QFLX'
+
+use_rad_uniform_angle = .false.
+use_rad_uniform_lat   = .true.
+rad_uniform_lat       = 0.
+
+omega = 0.
+
+solar_irrad_data_file = '/n/holyscratch01/kuang_lab/nwong/AquaSlabIslands/inputdata/atm/cam/solar/ape_solar_ave_tsi_1365.nc'
+prescribed_ozone_file = 'ozone.cam.ne30.L32.RCEMIP_c20190507.nc'
+inithist = 'ENDOFRUN'
